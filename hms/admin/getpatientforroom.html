@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta content="utf-8" http-equiv="encoding">
+  <script src="jquery-3.1.1.min.js" type="text/javascript"></script>
+<body  onload="myFunction()">
+<div id="itemsContainer"></div>
+<script type="text/javascript">
+function myFunction() {
+
+$.ajax({
+   
+   type: 'get',
+   url: 'getroom.php',
+   dataType: 'JSON',
+    success: function(result) {
+        var length = result.length;
+        var container = document.getElementById('itemsContainer');
+        var i;
+        for(i = 1; i <= length; i++)
+        { 
+           container.innerHTML+=' <br\><div class="items" id="'+i+'">   <label for="cheese">RoomId:'+i+'</label><hr>';
+
+          container.innerHTML+='</div>'
+        }
+    }
+});
+
+
+$.ajax({
+    type: "Get",
+    url: "getpatientforroom.php",
+     data: 'roomId=' + 1,
+        success: function (response) {
+		var obj = JSON.parse(response);
+	
+		
+/* 	var id=i.toString();
+	alert(id) */
+	
+   var itme=document.getElementById("1");
+	for(j=1;j<3;j++){
+	 itme.innerHTML+='<div class="box" ><ul class="connected-sortable draggable-left"> <li>'+obj[2].firstName+'</li> </ul> </div>';
+	}
+/*       	  alert(obj[0].firstName); */
+   }
+    });
+}
+</script>
+<style>
+.items{
+  margin-top:10px;
+  width:200px;
+  height:200px;
+  background:gold;
+margin-left: 20px;
+}
+#itemsContainer{display: inline-flex
+}
+</style>
+</body>
+</html>
